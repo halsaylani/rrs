@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
     //requests
     Route::get('requests',[RequestsController::class,'index'])->name('request.index');
     Route::put('requests/add',[RequestsController::class,'add'])->name('request.add');
+    Route::put('requests/done/{id}',[RequestsController::class,'done'])->name('request.done');
+    Route::put('requests/cancele/{id}',[RequestsController::class,'cancele'])->name('request.cancele');
 });
-
+// allow guest users to request
+ Route::put('requests/add',[RequestsController::class,'add'])->name('request.add');
 require __DIR__.'/auth.php';

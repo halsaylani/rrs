@@ -2,14 +2,22 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue';
-import { CheckCircleIcon, XCircleIcon, PlusIcon } from '@heroicons/vue/24/outline';
+import { CheckCircleIcon, XCircleIcon, PlusIcon, CheckIcon, XMarkIcon} from '@heroicons/vue/24/outline';
 import { Inertia } from '@inertiajs/inertia';
 
 const props = defineProps({
     requests: Object,
 });
 
-
+function done($id){
+    Inertia.put(route('request.done',{ id: $id}),{
+    });
+}
+function cancele($id){
+    Inertia.put(route('request.cancele',{ id: $id}),{
+    });
+}
+cancele
 </script>
 
 <template>
@@ -54,8 +62,8 @@ const props = defineProps({
                 </thead>
                 <tbody >
 
-                    <tr v-for="request in requests" class=" bg-gray-900  hover:bg-gray-800">
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <tr v-for="request in requests" class="bg-gray-900  hover:bg-gray-800">
+                        <th scope="row" class="py-4 px-6 font-medium text-white text-gray-90 whitespace-nowrap">
                             {{ request.id }}
                         </th>
                         <td class="py-4 px-6">
@@ -71,21 +79,28 @@ const props = defineProps({
                             {{ request.persons_number }}
                         </td>
                         <td class="py-4 px-6">
-                            {{ request.is_confirmed ?? '-' }}
+                            {{ request.is_confirmed == true ? 'confirmed' :'pending..' }}
                         </td>
                         
 
-                        <td class="flex flex-row py-4 px-6">
+                        <td v-if="!request.is_done && !request.is_canceled" class="flex flex-row py-4 px-6">
                             <div class="m-5">
                                 <CheckCircleIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-green-600"
-                                   />
+                                   @click="done(request.id)" />
                             </div>
                             <div class="m-5">
                                 <XCircleIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-rose-600"
-                                    />
+                                @click="cancele(request.id)" />
                             </div>
                         </td>
-                    
+                        <td v-if="request.is_done" class="py-4 px-6 ">
+                            <CheckIcon class="ml-10 w-7 h-7 shrink-0 text-green-600"
+                                  />
+                        </td>
+                        <td v-if="request.is_canceled" class="py-4 px-6">
+                            <XMarkIcon class="ml-10 w-7 h-7 shrink-0 text-rose-600"
+                                  />
+                        </td>
                     </tr>
                 </tbody>
             </table>

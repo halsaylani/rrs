@@ -11,7 +11,7 @@ class RequestsController extends Controller
     //
     public function index(){
         return Inertia::render('requests',[
-            'requests' => Requests::get()
+            'requests' => Requests::orderBy('created_at','desc')->get()
         ]);
     }
 
@@ -28,6 +28,24 @@ class RequestsController extends Controller
 
         ]);
 
+        return redirect()->back();
+    }
+    public function done($id){
+
+        $request = Requests::findOrfail($id);
+        $request->update([
+            'is_done' => true,
+            'is_canceled' => false
+    ]);
+        return redirect()->back();
+    }
+    public function cancele($id){
+        
+        $request = Requests::findOrfail($id);
+        $request->update([
+            'is_done' => false,
+            'is_canceled' => true
+        ]);
         return redirect()->back();
     }
 }
