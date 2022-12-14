@@ -4,7 +4,7 @@ import { Head, useForm } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue';
 import { TrashIcon, PencilSquareIcon, CheckCircleIcon, XCircleIcon, PlusIcon } from '@heroicons/vue/24/outline';
 import { Inertia } from '@inertiajs/inertia';
-import edit from '@/Pages/Tables/edit.vue';
+import add from '@/Pages/Tables/add.vue';
 
 const props = defineProps({
     tables: Object,
@@ -58,7 +58,7 @@ function deleteTable($id) {
                     @click="openModal()" />
             </div>
         </div>
-        <edit v-if="isopen" />
+        <add v-if="isopen" />
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

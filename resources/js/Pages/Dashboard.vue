@@ -7,7 +7,7 @@ import { Head } from '@inertiajs/inertia-vue3';
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
-        <h1 class="font-bold text-2xl text-gray-700">Dashboard</h1>
+        <h1 class="font-bold text-2xl text-white">Tables</h1>
 
 
         <div class="py-12">

@@ -1,5 +1,8 @@
 <script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Inertia } from '@inertiajs/inertia';
+import { Head, useForm, Link } from '@inertiajs/inertia-vue3';
+import { ref } from 'vue';
+import Add from './Tables/add.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -7,6 +10,30 @@ defineProps({
     laravelVersion: String,
     phpVersion: String,
 });
+
+const showEmail = ref(false);
+function showEmailInput(){
+    showEmail.value = !showEmail.value;
+}
+const form = useForm({
+    name: '',
+    email: '',
+    phone_number: '',
+    persons_number: '',
+});
+
+// function add(){
+   
+//     Inertia.put(route('request.add'),{
+//     name: form.name,
+//     email: form.email,
+//     phone_number: form.phone_number,
+//     persons_number: form.persons_number,
+//     });
+//     form.reset();
+
+// }
+
 </script>
 
 <template>
@@ -46,24 +73,54 @@ defineProps({
                 <h2 class="mb-12 text-center text-5xl font-extrabold">Welcome.</h2>
                 <form>
                     <div class="mb-4">
-                        <label class="block text-white font-bold mb-1" for="email">Name</label>
-                        <input id="name" type="text" name="name"
+                        <label class="block text-white font-bold mb-1" >Name</label>
+                        <input  type="text"
+                        v-model="form.name"
                             class="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
                     </div>
-                    <div class="mb-4">
-                        <label class="block text-white font-bold mb-1" for="password">Phone Number</label>
-                        <input id="number" type="text" name="number"
-                            class="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
+
+                    <div class="flex flex-row">
+                        <div>
+                        <label v-if="!showEmail" class="block text-white font-bold mb-1" >Phone Number</label>
+                        <label v-if="showEmail" class="block text-white font-bold mb-1" >Email</label>
                     </div>
+                    <div class="pl-2">
+                        <a v-if="!showEmail" class="text-sm text-blue-500 mb-1 font-bold hover:cursor-pointer" @click="showEmailInput">or email</a>
+                        <a v-if="showEmail" class="text-sm text-blue-500 mb-1 font-bold hover:cursor-pointer" @click="showEmailInput">or phone number</a>
+
+                    </div>
+                     </div>
+                     <input v-if="!showEmail" type="text" 
+                     v-model="form.phone_number"
+                            class="mb-4 py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
+                           
+                            <input v-if="showEmail" type="email" 
+                            v-model="form.email"
+                            class="mb-4 py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
+                   
+
                     <div class="mb-4">
-                        <label class="block text-white text-center text-3xl font-bold mb-1" for="email"> Or
-                            email</label>
-                        <input id="email" type="text" name="email"
+                        <label class="block text-white font-bold mb-1" >Persons Number</label>
+                        <input type="text" 
+                        v-model="form.persons_number"
                             class="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
                     </div>
                     <div class="mt-6">
-                        <button
-                            class="w-full inline-flex items-center justify-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold capitalize text-white hover:bg-red-700 active:bg-red-700 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 disabled:opacity-25 transition">Start</button>
+                        <Link
+                        :href="
+                              route('request.add', {
+                            name: form.name,
+                            email: form.email,
+                            phone_number: form.phone_number,
+                            persons_number: form.persons_number,
+                              })"
+                        method="put"
+                        as="button"
+                        :preserve-state="false"
+                        class="w-full inline-flex items-center justify-center px-4 py-2">
+                    
+                        <button class="w-full inline-flex items-center justify-center px-4 py-2 bg-red-600  rounded-md  text-white">Start</button>
+               </Link> 
                     </div>
                 </form>
             </div>
