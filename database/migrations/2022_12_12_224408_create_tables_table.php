@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
-            $table->String('table-number');
-            $table->String('seats-number');
+            $table->String('table_number');
+            $table->String('seats_number');
             $table->timestamps();
         });
     }

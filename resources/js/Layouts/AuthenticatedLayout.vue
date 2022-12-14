@@ -29,7 +29,7 @@ const showingNavigationDropdown = ref(false);
             <div class="sidebar-content px-4 py-6">
                 <ul class="flex flex-col w-full">
                     <li class="my-px">
-                        <a href="#" class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100">
+                        <a href="/dashboard" class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-700 bg-gray-100">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
@@ -42,7 +42,7 @@ const showingNavigationDropdown = ref(false);
                     </li>
 
                     <li class="my-px">
-                        <a href="#"
+                        <a :href="route('tables.index')"
                             class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -88,7 +88,7 @@ const showingNavigationDropdown = ref(false);
 
 
                     <li class="my-px">
-                        <a href="#"
+                        <a
                             class="flex flex-row items-center h-10 px-3 rounded-lg text-gray-300 hover:bg-gray-100 hover:text-gray-700">
                             <span class="flex items-center justify-center text-lg text-red-400">
                                 <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -97,7 +97,8 @@ const showingNavigationDropdown = ref(false);
                                         d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                                 </svg>
                             </span>
-                            <span class="ml-3">Logout</span>
+                            <Link class="ml-3" :href="route('logout')" method="post" as="button" type="button">Logout</Link>
+
                         </a>
                     </li>
                 </ul>
@@ -130,7 +131,7 @@ const showingNavigationDropdown = ref(false);
                     </div>
                 </div>
             </header>
-            <div class="main-content flex flex-col flex-grow p-4">
+            <div class="main-content flex flex-col flex-grow p-4 bg-black">
                 <slot />
             </div>
             <footer class="footer px-4 py-6">
