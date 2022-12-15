@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\tablesController;
 use App\Http\Controllers\RequestsController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,11 +28,15 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
+    //dashboard
+    Route::get('/dashboard',[ DashboardController::class,'index'])->name('dashboard');
+
     //tables
     Route::get('tables',[tablesController::class,'index'])->name('tables.index');
     Route::put('tables/add',[tablesController::class,'add'])->name('tables.add');
