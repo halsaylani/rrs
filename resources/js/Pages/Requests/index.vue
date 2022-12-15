@@ -4,6 +4,7 @@ import { Head, useForm } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue';
 import { CheckCircleIcon, XCircleIcon, PlusIcon, CheckIcon, XMarkIcon} from '@heroicons/vue/24/outline';
 import { Inertia } from '@inertiajs/inertia';
+import add from '@/Pages/Requests/add.vue';
 
 const props = defineProps({
     requests: Object,
@@ -16,6 +17,10 @@ function done($id){
 function cancele($id){
     Inertia.put(route('request.cancele',{ id: $id}),{
     });
+}
+const isopen = ref(false);
+function openModal(){
+    isopen.value = !isopen.value;
 }
 cancele
 </script>
@@ -30,9 +35,10 @@ cancele
             </div>
             <div class="absolute top-5 right-0">
                 <PlusIcon class="w-10 h-10 shrink-0 text-white hover:cursor-pointer hover:bg-gray-600 hover:rounded-md"
-                     />
+                     @click="openModal"/>
             </div>
         </div>
+        <add v-if="isopen" />
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

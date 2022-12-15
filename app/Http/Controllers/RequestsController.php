@@ -10,7 +10,7 @@ class RequestsController extends Controller
 {
     //
     public function index(){
-        return Inertia::render('requests',[
+        return Inertia::render('Requests/index',[
             'requests' => Requests::orderBy('created_at','desc')->get()
         ]);
     }
