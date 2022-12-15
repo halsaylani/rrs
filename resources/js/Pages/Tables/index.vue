@@ -49,17 +49,17 @@ function deleteTable($id) {
 
     <Head title="Dashboard" />
     <AuthenticatedLayout>
-        <div class="relative flex-row p-5">
+        <div class="relative flex-row">
             <div>
                 <h1 class="font-bold text-2xl text-white">Tables</h1>
             </div>
-            <div class="absolute top-5 right-0">
-                <PlusIcon class="w-10 h-10 shrink-0 text-white hover:cursor-pointer hover:bg-gray-600 hover:rounded-md"
+            <div class="absolute top-0 right-0">
+                <PlusIcon class="w-10 h-10 shrink-0 text-white hover:cursor-pointer hover:bg-gray-800 hover:rounded-md"
                     @click="openModal()" />
             </div>
         </div>
         <add v-if="isopen" />
-        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>

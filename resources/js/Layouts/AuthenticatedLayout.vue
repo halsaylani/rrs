@@ -28,7 +28,8 @@ const showingNavigationDropdown = ref(false);
             <div class="sidebar-content px-4 py-6">
                 <ul class="flex flex-col w-full">
                     <li class="my-px">
-                        <a href="/dashboard" class="flex flex-row items-center h-10 px-3 rounded-lg text-white bg-gray-900">
+                        <a href="/dashboard" class="flex flex-row items-center h-10 px-3 rounded-lg text-white hover:bg-gray-900"
+                        :active="route().current('/dashboard')">
                             <span class="flex items-center justify-center text-lg text-gray-400">
                                 <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
@@ -134,11 +135,10 @@ const showingNavigationDropdown = ref(false);
                     </form>
                     <div class="flex ml-auto">
                         <a href class="flex flex-row items-center">
-                            <img src="https://pbs.twimg.com/profile_images/378800000298815220/b567757616f720812125bfbac395ff54_normal.png"
-                                alt class="h-10 w-10 bg-gray-200 border rounded-full" />
+                            <div  class="h-10 w-10 bg-orange-500 rounded-full" />
                             <span class="flex flex-col ml-2 text-white">
-                                <span class="truncate w-20 font-semibold tracking-wide leading-none">John Doe</span>
-                                <span class="truncate w-20 text-xs leading-none mt-1">Manager</span>
+                                <span class="truncate w-20 font-semibold tracking-wide leading-none"> {{ $page.props.auth.user.name }}</span>
+                                <span class="truncate w-20 text-xs leading-none mt-1"> {{ $page.props.auth.user.email }}</span>
                             </span>
                         </a>
                     </div>
