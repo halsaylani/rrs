@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendEmailToUserRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Requests;
+use Illuminate\Support\Facades\Mail;
 
 class RequestsController extends Controller
 {
@@ -54,5 +56,12 @@ class RequestsController extends Controller
         return Inertia::render('Requests/searchResult',[
             'results' => Requests::where('name', 'LIKE', '%'.$request->input('name').'%')->paginate(),
         ]);
+    }
+
+    public function sendEmail($id){
+        $request = Requests::findOrfail($id);
+        Mail::to($request->email)->send(new SendEmailToUserRequest($request));
+
+
     }
 }

@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 import { ref, watch } from 'vue';
-import { CheckCircleIcon, XCircleIcon, PlusIcon, CheckIcon, XMarkIcon} from '@heroicons/vue/24/outline';
+import { CheckCircleIcon, XCircleIcon, PlusIcon, CheckIcon, XMarkIcon,PaperAirplaneIcon,ChatBubbleOvalLeftIcon} from '@heroicons/vue/24/outline';
 import { Inertia } from '@inertiajs/inertia';
 import add from '@/Pages/Requests/add.vue';
 import searchResult from '@/Pages/Requests/searchResult.vue';
@@ -38,6 +38,11 @@ watch(
     () => props.requests,
     (updateData) => (requests.value = updateData)
   );
+
+function sendEmail($id){
+    Inertia.get(route('request.email',{id:$id}));
+
+  }
 </script>
 
 <template>
@@ -113,11 +118,19 @@ watch(
                         
 
                         <td v-if="!request.is_done && !request.is_canceled" class="flex flex-row py-4 px-6">
-                            <div class="m-5">
+                            <div v-if="request.email">
+                                <PaperAirplaneIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-blue-600"
+                                   @click="sendEmail(request.id)" />
+                            </div>
+                            <div v-if="request.phone_number">
+                                <ChatBubbleOvalLeftIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-blue-600"
+                                   @click="sendSMS(request.phone_number)" />
+                            </div>
+                            <div class="ml-5">
                                 <CheckCircleIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-green-600"
                                    @click="done(request.id)" />
                             </div>
-                            <div class="m-5">
+                            <div class="ml-5">
                                 <XCircleIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-rose-600"
                                 @click="cancele(request.id)" />
                             </div>

@@ -2,9 +2,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
 import { ref,watch } from 'vue';
-import { CheckCircleIcon, XCircleIcon, PlusIcon, CheckIcon, XMarkIcon} from '@heroicons/vue/24/outline';
+import { CheckCircleIcon, XCircleIcon, CheckIcon, XMarkIcon,PaperAirplaneIcon,ChatBubbleOvalLeftIcon} from '@heroicons/vue/24/outline';
 import { Inertia } from '@inertiajs/inertia';
-import add from '@/Pages/Requests/add.vue';
 
 const props = defineProps({
     results: Object,
@@ -81,11 +80,19 @@ watch(
                             {{ result.is_confirmed == true ? 'confirmed' :'pending..' }}
                         </td>
                         <td v-if="!result.is_done && !result.is_canceled" class="flex flex-row py-4 px-6">
-                            <div class="m-5">
+                            <div v-if="result.email">
+                                <PaperAirplaneIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-blue-600"
+                                   @click="sendEmail(result.email)" />
+                            </div>
+                            <div v-if="result.phone_number">
+                                <ChatBubbleOvalLeftIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-blue-600"
+                                   @click="sendSMS(result.phone_number)" />
+                            </div>
+                            <div class="ml-5">
                                 <CheckCircleIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-green-600"
                                    @click="done(result.id)" />
                             </div>
-                            <div class="m-5">
+                            <div class="ml-5">
                                 <XCircleIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-rose-600"
                                 @click="cancele(result.id)" />
                             </div>

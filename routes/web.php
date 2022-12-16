@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::put('requests/done/{id}',[RequestsController::class,'done'])->name('request.done');
     Route::put('requests/cancele/{id}',[RequestsController::class,'cancele'])->name('request.cancele');
     Route::get('requests/search',[RequestsController::class,'search'])->name('request.search');
+    Route::get('requests/send-email/{id}',[RequestsController::class,'sendEmail'])->name('request.email');
 });
 // allow guest users to request
  Route::put('requests/add',[RequestsController::class,'add'])->name('request.add');
