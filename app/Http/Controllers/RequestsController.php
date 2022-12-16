@@ -6,6 +6,9 @@ use App\Mail\SendEmailToUserRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Requests;
+use App\Models\Sessions;
+
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Mail;
 
 class RequestsController extends Controller
@@ -19,7 +22,7 @@ class RequestsController extends Controller
 
     public function add(Request $request){
        
-        Requests::create([
+        $requests = Requests::create([
             'name'=> request('name'),
             'email'=> request('email'),
             'phone_number'=> request('phone_number'),
@@ -29,7 +32,9 @@ class RequestsController extends Controller
             'is_done'=>false
 
         ]);
-
+        
+        //session(['request_id' => $requests->id]);
+        //dd(Sessions::all());
         return redirect()->back();
     }
     public function done($id){
@@ -61,7 +66,12 @@ class RequestsController extends Controller
     public function sendEmail($id){
         $request = Requests::findOrfail($id);
         Mail::to($request->email)->send(new SendEmailToUserRequest($request));
+    }
 
-
+    public function live(){
+        return Inertia::render('LiveUpdate',[
+            'requests' => Requests::where('id',1)->get(),
+          
+        ]);
     }
 }

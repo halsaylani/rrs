@@ -17,5 +17,8 @@ class Requests extends Model
         'is_confirmed',
         'is_done',
     ];
-
+    // public function sessions()
+    // {
+    //     return $this->hasMany(Sessions::class,'sessions');
+    // }
 }
