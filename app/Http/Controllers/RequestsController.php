@@ -48,4 +48,11 @@ class RequestsController extends Controller
         ]);
         return redirect()->back();
     }
+
+    public function search(Request $request){
+    
+        return Inertia::render('Requests/searchResult',[
+            'results' => Requests::where('name', 'LIKE', '%'.$request->input('name').'%')->paginate(),
+        ]);
+    }
 }
