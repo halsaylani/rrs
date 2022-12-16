@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { CheckCircleIcon, XCircleIcon, PlusIcon, CheckIcon, XMarkIcon} from '@heroicons/vue/24/outline';
 import { Inertia } from '@inertiajs/inertia';
 import add from '@/Pages/Requests/add.vue';
@@ -27,13 +27,17 @@ const form = useForm({
     number:'',
 })
 const showSearch = ref(false);
-const Cresults = ref(props.results?.data);
 function search(){
     showSearch.value = !showSearch.value;
 Inertia.get(route('request.search',{}),{
     name: form.name
 });
 }
+const requests = ref(props.requests);
+watch(
+    () => props.requests,
+    (updateData) => (requests.value = updateData)
+  );
 </script>
 
 <template>

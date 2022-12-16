@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
-import { ref } from 'vue';
+import { ref,watch } from 'vue';
 import { TrashIcon, PencilSquareIcon, CheckCircleIcon, XCircleIcon, PlusIcon } from '@heroicons/vue/24/outline';
 import { Inertia } from '@inertiajs/inertia';
 import add from '@/Pages/Tables/add.vue';
@@ -42,7 +42,10 @@ function updateTable($id) {
 function deleteTable($id) {
     Inertia.delete(route('tables.delete', { id: $id }),);
 }
-
+watch(
+    () => props.tables,
+    (updateData) => (tables.value = updateData)
+  );
 </script>
 
 <template>
