@@ -70,6 +70,7 @@ class RequestsController extends Controller
 
     public function live(){
         return Inertia::render('LiveUpdate',[
+            'inWaiting' => Requests::where('is_done',0)->count(),
             'requests' => Requests::where('id',1)->get(),
           
         ]);
