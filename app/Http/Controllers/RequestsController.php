@@ -10,6 +10,7 @@ use App\Models\Sessions;
 
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Mail;
+use Exception;
 
 class RequestsController extends Controller
 {
@@ -64,14 +65,18 @@ class RequestsController extends Controller
     }
 
     public function sendEmail($id){
-        $request = Requests::findOrfail($id);
-        Mail::to($request->email)->send(new SendEmailToUserRequest($request));
+        try {
+            $request = Requests::findOrfail($id);
+            Mail::to($request->email)->send(new SendEmailToUserRequest($request));
+        } catch (Exception $e) {
+            return abort(404);
+        }
     }
 
-    public function live(){
+    public function live($id){
         return Inertia::render('LiveUpdate',[
             'inWaiting' => Requests::where('is_done',0)->count(),
-            'requests' => Requests::where('id',1)->get(),
+            'requests' => Requests::where('id',$id)->get(),
           
         ]);
     }

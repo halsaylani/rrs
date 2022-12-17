@@ -49,6 +49,7 @@ class SendEmailToUserRequest extends Mailable
             view: 'email',
             with: [
                 'name' => $this->request->name,
+                'request' => $this->request->id,
             ],
         );
     }

@@ -56,6 +56,6 @@ Route::middleware('auth')->group(function () {
 });
 // allow guest users to request
  Route::put('requests/add',[RequestsController::class,'add'])->name('request.add');
- Route::get('requests/live-update',[RequestsController::class,'live'])->name('request.live');
+ Route::get('requests/live-update/{id}',[RequestsController::class,'live'])->name('request.live');
 
 require __DIR__.'/auth.php';
