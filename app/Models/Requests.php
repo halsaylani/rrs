@@ -16,6 +16,7 @@ class Requests extends Model
         'is_canceled',
         'is_confirmed',
         'is_done',
+        'is_email_sent'
     ];
     // public function sessions()
     // {

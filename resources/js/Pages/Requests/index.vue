@@ -116,10 +116,10 @@ function sendEmail($id){
                             {{ request.is_confirmed == true ? 'confirmed' :'pending..' }}
                         </td>
                         
-
                         <td v-if="!request.is_done && !request.is_canceled" class="flex flex-row py-4 px-6">
                             <div v-if="request.email">
                                 <PaperAirplaneIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-blue-600"
+                                :class="request.is_email_sent?'text-green-500 hover:text-green-500':''"
                                    @click="sendEmail(request.id)" />
                             </div>
                             <div v-if="request.phone_number">

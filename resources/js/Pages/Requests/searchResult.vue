@@ -82,7 +82,8 @@ watch(
                         <td v-if="!result.is_done && !result.is_canceled" class="flex flex-row py-4 px-6">
                             <div v-if="result.email">
                                 <PaperAirplaneIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-blue-600"
-                                   @click="sendEmail(result.email)" />
+                                :class="result.is_email_sent?'text-green-500 hover:text-green-500':''"
+                                   @click="sendEmail(result.id)" />
                             </div>
                             <div v-if="result.phone_number">
                                 <ChatBubbleOvalLeftIcon class="w-5 h-5 shrink-0 hover:cursor-pointer hover:text-blue-600"

@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Crypt;
 
 class SendEmailToUserRequest extends Mailable
 {
@@ -49,7 +50,7 @@ class SendEmailToUserRequest extends Mailable
             view: 'email',
             with: [
                 'name' => $this->request->name,
-                'request' => $this->request->id,
+                'request' => Crypt::encryptString($this->request->id),
             ],
         );
     }

@@ -11,6 +11,8 @@ use App\Models\Sessions;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Mail;
 use Exception;
+use Illuminate\Support\Facades\Crypt;
+
 
 class RequestsController extends Controller
 {
@@ -68,16 +70,31 @@ class RequestsController extends Controller
         try {
             $request = Requests::findOrfail($id);
             Mail::to($request->email)->send(new SendEmailToUserRequest($request));
+            $request->update([
+                'is_email_sent' => true,
+            ]);
         } catch (Exception $e) {
             return abort(404);
         }
     }
 
-    public function live($id){
-        return Inertia::render('LiveUpdate',[
-            'inWaiting' => Requests::where('is_done',0)->count(),
-            'requests' => Requests::where('id',$id)->get(),
-          
-        ]);
-    }
+    public function live($id,Request $request){
+       
+        $decryptedRequest = Crypt::decryptString($id);
+        $requests = Requests::where('id',$decryptedRequest)->first();
+            // on request deleted redirect welcome
+            if(!$requests){
+                return redirect('/');
+            }
+            // on request finish redirect welcome
+            if($requests->is_done == true){
+                return redirect('/');
+            }
+
+            return Inertia::render('LiveUpdate',[
+                'inWaiting' => Requests::where('is_done',0)->count(),
+                'requests' => Requests::where('id',$decryptedRequest)->get(),
+              
+            ]);
+        }
 }
