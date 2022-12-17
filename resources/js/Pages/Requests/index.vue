@@ -112,7 +112,8 @@ function sendEmail($id){
                         <td class="py-4 px-6">
                             {{ request.persons_number }}
                         </td>
-                        <td class="py-4 px-6">
+                        <td class="py-4 px-6"
+                        :class="request.is_confirmed == true ? 'text-green-500' :'text-yellow-500'">
                             {{ request.is_confirmed == true ? 'confirmed' :'pending..' }}
                         </td>
                         

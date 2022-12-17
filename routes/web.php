@@ -57,5 +57,9 @@ Route::middleware('auth')->group(function () {
 // allow guest users to request
  Route::put('requests/add',[RequestsController::class,'add'])->name('request.add');
  Route::get('requests/live-update/{id}',[RequestsController::class,'live'])->name('request.live');
+ Route::get('requests/live-update/confirm/{id}',[RequestsController::class,'confirm'])->name('request.confirmView');
+ Route::put('requests/live-update/confirm/{id}',[RequestsController::class,'confirmRequest'])->name('request.confirmRequest');
+
+ 
 
 require __DIR__.'/auth.php';

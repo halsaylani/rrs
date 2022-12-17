@@ -74,7 +74,7 @@ const form = useForm({
                         <label class="block text-white font-bold mb-1" >Name</label>
                         <input  type="text"
                         v-model="form.name"
-                            class="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
+                            class="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" required/>
                     </div>
 
                     <div class="flex flex-row">
@@ -90,18 +90,18 @@ const form = useForm({
                      </div>
                      <input v-if="!showEmail" type="text" 
                      v-model="form.phone_number"
-                            class="mb-4 py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
+                            class="mb-4 py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" required/>
                            
                             <input v-if="showEmail" type="email" 
                             v-model="form.email"
-                            class="mb-4 py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
+                            class="mb-4 py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" required/>
                    
 
                     <div class="mb-4">
                         <label class="block text-white font-bold mb-1" >Persons Number</label>
                         <input type="text" 
                         v-model="form.persons_number"
-                            class="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />
+                            class="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" required/>
                     </div>
                     <div class="mt-6">
                         <Link
@@ -115,9 +115,9 @@ const form = useForm({
                         method="put"
                         as="button"
                         :preserve-state="false"
-                        class="w-full inline-flex items-center justify-center px-4 py-2">
+                        class="w-full inline-flex items-center justify-center">
                     
-                        <button class="w-full inline-flex items-center justify-center px-4 py-2 bg-red-600  rounded-md  text-white">Start</button>
+                        <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-2 bg-red-600  rounded-md  text-white">Start</button>
                </Link> 
                     </div>
                 </form>

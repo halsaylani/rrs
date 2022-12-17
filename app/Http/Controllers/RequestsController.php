@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\SendEmailToUserRequest;
+use App\Mail\ConfirmEmailToUserRequest;
+use App\Mail\WelcomeEmailToUserRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Requests;
@@ -24,7 +25,11 @@ class RequestsController extends Controller
     }
 
     public function add(Request $request){
-       
+
+        $request->validate([
+            'name' => 'required',
+            'persons_number' => 'required',
+          ]);
         $requests = Requests::create([
             'name'=> request('name'),
             'email'=> request('email'),
@@ -35,7 +40,11 @@ class RequestsController extends Controller
             'is_done'=>false
 
         ]);
-        
+        try {
+            Mail::to($requests->email)->send(new WelcomeEmailToUserRequest($requests));
+        } catch (Exception $e) {
+            return abort(404);
+        }
         //session(['request_id' => $requests->id]);
         //dd(Sessions::all());
         return redirect()->back();
@@ -69,7 +78,7 @@ class RequestsController extends Controller
     public function sendEmail($id){
         try {
             $request = Requests::findOrfail($id);
-            Mail::to($request->email)->send(new SendEmailToUserRequest($request));
+            Mail::to($request->email)->send(new ConfirmEmailToUserRequest($request));
             $request->update([
                 'is_email_sent' => true,
             ]);
@@ -78,7 +87,7 @@ class RequestsController extends Controller
         }
     }
 
-    public function live($id,Request $request){
+    public function live($id){
        
         $decryptedRequest = Crypt::decryptString($id);
         $requests = Requests::where('id',$decryptedRequest)->first();
@@ -94,7 +103,38 @@ class RequestsController extends Controller
             return Inertia::render('LiveUpdate',[
                 'inWaiting' => Requests::where('is_done',0)->count(),
                 'requests' => Requests::where('id',$decryptedRequest)->get(),
-              
+                'confirm'=>false,
             ]);
         }
+
+        public function confirm($id){
+       
+            $decryptedRequest = Crypt::decryptString($id);
+            $requests = Requests::where('id',$decryptedRequest)->first();
+                // on request deleted redirect welcome
+                if(!$requests){
+                    return redirect('/');
+                }
+                // on request finish redirect welcome
+                if($requests->is_done == true){
+                    return redirect('/');
+                }
+    
+                return Inertia::render('LiveUpdate',[
+                    'inWaiting' => Requests::where('is_done',0)->count(),
+                    'requests' => Requests::where('id',$decryptedRequest)->get(),
+                    'confirm'=>true,
+                  
+                ]);
+            }
+            public function confirmRequest($id){
+                $request = Requests::findOrfail($id);
+                $request->update([
+                    'is_confirmed' => true,
+                ]);
+                return redirect()->back();
+
+                }
+
+        
 }

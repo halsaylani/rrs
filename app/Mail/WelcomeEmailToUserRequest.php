@@ -11,7 +11,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Crypt;
 
-class SendEmailToUserRequest extends Mailable
+class WelcomeEmailToUserRequest extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -47,7 +47,7 @@ class SendEmailToUserRequest extends Mailable
     public function content()
     {
         return new Content(
-            view: 'email',
+            view: 'welcomeEmail',
             with: [
                 'name' => $this->request->name,
                 'request' => Crypt::encryptString($this->request->id),
