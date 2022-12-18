@@ -2,7 +2,7 @@
 import { Inertia } from '@inertiajs/inertia';
 import { Head, useForm, Link } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue';
-import Add from './Tables/add.vue';
+import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -12,7 +12,7 @@ defineProps({
 });
 
 const showEmail = ref(false);
-function showEmailInput(){
+function showEmailInput() {
     showEmail.value = !showEmail.value;
 }
 const form = useForm({
@@ -22,17 +22,17 @@ const form = useForm({
     persons_number: '',
 });
 
-// function add(){
-   
-//     Inertia.put(route('request.add'),{
-//     name: form.name,
-//     email: form.email,
-//     phone_number: form.phone_number,
-//     persons_number: form.persons_number,
-//     });
-//     form.reset();
+function add() {
 
-// }
+    Inertia.put(route('request.add'), {
+        name: form.name,
+        email: form.email,
+        phone_number: form.phone_number,
+        persons_number: form.persons_number,
+    });
+    form.reset();
+
+}
 
 </script>
 
@@ -62,63 +62,63 @@ const form = useForm({
             </template>
         </div> -->
         <div class="w-full min-h-screen bg-black flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-            <svg class="w-10 h-10 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M11.757 2.034a1 1 0 01.638.519c.483.967.844 1.554 1.207 2.03.368.482.756.876 1.348 1.467A6.985 6.985 0 0117 11a7.002 7.002 0 01-14 0c0-1.79.684-3.583 2.05-4.95a1 1 0 011.707.707c0 1.12.07 1.973.398 2.654.18.374.461.74.945 1.067.116-1.061.328-2.354.614-3.58.225-.966.505-1.93.839-2.734.167-.403.356-.785.57-1.116.208-.322.476-.649.822-.88a1 1 0 01.812-.134zm.364 13.087A2.998 2.998 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879.586.585.879 1.353.879 2.121s-.293 1.536-.879 2.121z"
-                                clip-rule="evenodd" />
-                        </svg>
+            <div>
+                <Link href="/dashboard">
+                <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
+                </Link>
+            </div>
             <div class="w-full sm:max-w-md p-5 mx-auto">
                 <h2 class="mb-12 text-center text-5xl font-extrabold">Welcome.</h2>
                 <form>
                     <div class="mb-4">
-                        <label class="block text-white font-bold mb-1" >Name</label>
-                        <input  type="text"
-                        v-model="form.name"
-                            class="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" required/>
+                        <label class="block text-white font-bold mb-1">Name</label>
+                        <input type="text" v-model="form.name"
+                            class="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
+                            required />
                     </div>
 
                     <div class="flex flex-row">
                         <div>
-                        <label v-if="!showEmail" class="block text-white font-bold mb-1" >Phone Number</label>
-                        <label v-if="showEmail" class="block text-white font-bold mb-1" >Email</label>
-                    </div>
-                    <div class="pl-2">
-                        <a v-if="!showEmail" class="text-sm text-blue-500 mb-1 font-bold hover:cursor-pointer" @click="showEmailInput">or email</a>
-                        <a v-if="showEmail" class="text-sm text-blue-500 mb-1 font-bold hover:cursor-pointer" @click="showEmailInput">or phone number</a>
+                            <label v-if="!showEmail" class="block text-white font-bold mb-1">Phone Number</label>
+                            <label v-if="showEmail" class="block text-white font-bold mb-1">Email</label>
+                        </div>
+                        <div class="pl-2">
+                            <a v-if="!showEmail" class="text-sm text-blue-500 mb-1 font-bold hover:cursor-pointer"
+                                @click="showEmailInput">or email</a>
+                            <a v-if="showEmail" class="text-sm text-blue-500 mb-1 font-bold hover:cursor-pointer"
+                                @click="showEmailInput">or phone number</a>
 
+                        </div>
                     </div>
-                     </div>
-                     <input v-if="!showEmail" type="text" 
-                     v-model="form.phone_number"
-                            class="mb-4 py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" required/>
-                           
-                            <input v-if="showEmail" type="email" 
-                            v-model="form.email"
-                            class="mb-4 py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" required/>
-                   
+                    <input v-if="!showEmail" type="text" v-model="form.phone_number"
+                        class="mb-4 py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
+                        required />
+
+                    <input v-if="showEmail" type="email" v-model="form.email"
+                        class="mb-4 py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
+                        required />
+
 
                     <div class="mb-4">
-                        <label class="block text-white font-bold mb-1" >Persons Number</label>
-                        <input type="text" 
-                        v-model="form.persons_number"
-                            class="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" required/>
+                        <label class="block text-white font-bold mb-1">Persons Number</label>
+                        <input type="text" v-model="form.persons_number"
+                            class="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
+                            required />
                     </div>
                     <div class="mt-6">
-                        <Link
-                        :href="
-                              route('request.add', {
+                        <Link :href="
+                        route('request.add', {
                             name: form.name,
                             email: form.email,
                             phone_number: form.phone_number,
                             persons_number: form.persons_number,
-                              })"
-                        method="put"
-                        as="button"
-                        :preserve-state="false"
-                        class="w-full inline-flex items-center justify-center">
-                    
-                        <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-2 bg-red-600  rounded-md  text-white">Start</button>
-               </Link> 
+                        })" method="put" as="button" :preserve-state="false"
+                            class="w-full inline-flex items-center justify-center">
+
+                        <button type="submit"
+                            class="w-full inline-flex items-center justify-center px-4 py-2 bg-red-600  rounded-md  text-white"
+                            @click="add">Start</button>
+                        </Link>
                     </div>
                 </form>
             </div>
