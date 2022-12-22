@@ -26,10 +26,10 @@ class RequestsController extends Controller
 
     public function add(Request $request){
 
-        // $request->validate([
-        //     'name' => 'required',
-        //     'persons_number' => 'required',
-        //   ]);
+        $request->validate([
+            'name' => 'required',
+            'persons_number' => 'required',
+          ]);
         $requests = Requests::create([
             'name'=> request('name'),
             'email'=> request('email'),

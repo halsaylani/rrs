@@ -22,17 +22,17 @@ const form = useForm({
     persons_number: '',
 });
 
-function add() {
+// function add() {
 
-    Inertia.put(route('request.add'), {
-        name: form.name,
-        email: form.email,
-        phone_number: form.phone_number,
-        persons_number: form.persons_number,
-    });
-    form.reset();
+//     Inertia.put(route('request.add'), {
+//         name: form.name,
+//         email: form.email,
+//         phone_number: form.phone_number,
+//         persons_number: form.persons_number,
+//     });
+//     form.reset();
 
-}
+// }
 
 </script>
 
