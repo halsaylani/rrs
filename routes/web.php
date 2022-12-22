@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\tablesController;
+use App\Http\Controllers\TablesController;
 use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Application;
@@ -38,10 +38,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard',[ DashboardController::class,'index'])->name('dashboard');
 
     //tables
-    Route::get('tables',[tablesController::class,'index'])->name('tables.index');
-    Route::put('tables/add',[tablesController::class,'add'])->name('tables.add');
-    Route::put('tables/{id}',[tablesController::class,'edit'])->name('tables.edit');
-    Route::delete('tables/delete/{id}',[tablesController::class,'delete'])->name('tables.delete');
+    Route::get('tables',[TablesController::class,'index'])->name('tables.index');
+    Route::put('tables/add',[TablesController::class,'add'])->name('tables.add');
+    Route::put('tables/{id}',[TablesController::class,'edit'])->name('tables.edit');
+    Route::delete('tables/delete/{id}',[TablesController::class,'delete'])->name('tables.delete');
     //profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
