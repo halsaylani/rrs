@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TablesController;
 use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\QrController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -53,6 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::put('requests/cancele/{id}',[RequestsController::class,'cancele'])->name('request.cancele');
     Route::get('requests/search',[RequestsController::class,'search'])->name('request.search');
     Route::get('requests/send-email/{id}',[RequestsController::class,'sendEmail'])->name('request.email');
+    //qr
+    Route::get('/qr', [QrController::class, 'index'])->name('qr.index');
+
 });
 // allow guest users to request
  Route::put('requests/add',[RequestsController::class,'add'])->name('request.add');
